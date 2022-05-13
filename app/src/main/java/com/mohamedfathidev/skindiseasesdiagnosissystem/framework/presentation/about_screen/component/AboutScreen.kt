@@ -9,7 +9,12 @@ import androidx.navigation.compose.rememberNavController
 fun AboutScreen(
     navController: NavController
 ) {
-
+    AboutScreenItems(
+        navController = navController,
+        onNavigateButton = {
+            navController.popBackStack()
+        }
+    )
 }
 
 
