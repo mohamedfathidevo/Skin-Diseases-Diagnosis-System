@@ -20,6 +20,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
@@ -47,19 +50,40 @@ fun OptionScreenItems(
             Manifest.permission.CAMERA,
         )
     )
-    val imageCameraUri by remember {
+    var imageCameraUri by remember {
         mutableStateOf<Uri?>(getTmpFileUri(context = context))
     }
     var imageGalleryUri by remember {
         mutableStateOf<Uri?>(null)
     }
+
+    var imageCropCameraLauncher = rememberLauncherForActivityResult(CropImageContract()) { result ->
+        if (result.isSuccessful) {
+            imageCameraUri = result.uriContent
+            val encodedCameraUrl = URLEncoder.encode(imageCameraUri.toString(), StandardCharsets.UTF_8.toString())
+            navController.navigate(Screen.Result.withArgs(encodedCameraUrl))
+        } else{
+            Log.d(TAG, "OptionCropCameraImage: ${result.error.toString()}")
+        }
+    }
+
+    var imageCropGalleryLauncher = rememberLauncherForActivityResult(CropImageContract()) { result ->
+        if (result.isSuccessful) {
+            imageGalleryUri = result.uriContent
+            val encodedGalleryUrl = URLEncoder.encode(imageGalleryUri.toString(), StandardCharsets.UTF_8.toString())
+            navController.navigate(Screen.Result.withArgs(encodedGalleryUrl))
+        } else{
+            Log.d(TAG, "OptionCropGalleryImage: ${result.error.toString()}")
+        }
+    }
+
     val launcherCamera = rememberLauncherForActivityResult(
         contract =
         ActivityResultContracts.TakePicture()
     ) { isSuccess ->
         if (isSuccess) {
-            val encodedCameraUrl = URLEncoder.encode(imageCameraUri.toString(), StandardCharsets.UTF_8.toString())
-            navController.navigate(Screen.Result.withArgs(encodedCameraUrl))
+            val cropOptions = CropImageContractOptions(imageCameraUri, CropImageOptions())
+            imageCropCameraLauncher.launch(cropOptions)
         } else {
             Log.d(TAG, "Failed to access permissions")
         }
@@ -69,9 +93,8 @@ fun OptionScreenItems(
         contract =
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
-        imageGalleryUri = uri
-        val encodedGalleryUrl = URLEncoder.encode(imageGalleryUri.toString(), StandardCharsets.UTF_8.toString())
-        navController.navigate(Screen.Result.withArgs(encodedGalleryUrl))
+        val cropOptions = CropImageContractOptions(imageGalleryUri, CropImageOptions())
+        imageCropGalleryLauncher.launch(cropOptions)
     }
 
     Box(

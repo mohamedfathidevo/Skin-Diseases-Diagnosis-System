@@ -36,6 +36,7 @@ fun ResultScreen(
 
     if (stateNetwork.error.isNotBlank()) {
         Toast.makeText(context, "Error Happen", Toast.LENGTH_SHORT).show()
+        Log.d(TAG, "ResultScreen Error happen: ${stateNetwork.error}")
         navController.navigate(Screen.Option.route) {
             popUpTo(Screen.Result.route) {
                 inclusive = true

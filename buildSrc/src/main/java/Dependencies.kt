@@ -1,4 +1,5 @@
 object Versions {
+    const val IMAGE_CROP = "4.0.0"
     const val COMPILE_SDK = 31
     const val MIN_SDK = 24
     const val TARGET_SDK = 31
@@ -48,6 +49,7 @@ object Android{
 }
 
 object Libs{
+    const val androidImageCrop = "com.github.CanHub:Android-Image-Cropper:${Versions.IMAGE_CROP}"
     const val coreKtx = "androidx.core:core-ktx:${Versions.CORE_KTX}"
     const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE_RUNTIME}"
     const val activityCompose = "androidx.activity:activity-compose:${Versions.ACTIVITY_COMPOSE}"

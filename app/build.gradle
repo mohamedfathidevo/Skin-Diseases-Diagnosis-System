@@ -82,5 +82,6 @@ dependencies {
     implementation Libs.material3Window
     implementation Libs.room
     annotationProcessor Libs.roomCompiler
+    implementation Libs.androidImageCrop
 
 }
