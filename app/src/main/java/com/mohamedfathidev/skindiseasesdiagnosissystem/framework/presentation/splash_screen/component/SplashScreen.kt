@@ -9,7 +9,9 @@ import androidx.navigation.compose.rememberNavController
 fun SplashScreen(
     navController: NavController
 ) {
-
+    SplashScreenItems(
+        navController = navController
+    )
 }
 
 @Preview(showBackground = true)

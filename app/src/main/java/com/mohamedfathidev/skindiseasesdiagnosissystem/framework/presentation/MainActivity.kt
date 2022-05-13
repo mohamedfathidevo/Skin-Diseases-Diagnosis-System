@@ -10,6 +10,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.component.SetupNavGraph
 import com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.ui.theme.SkinDiseasesDiagnosisSystemTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,27 +19,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SkinDiseasesDiagnosisSystemTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
+                val navHostController = rememberNavController()
+                SetupNavGraph(navHostController = navHostController)
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    SkinDiseasesDiagnosisSystemTheme {
-        Greeting("Android")
     }
 }

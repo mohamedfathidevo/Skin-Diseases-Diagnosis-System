@@ -20,7 +20,7 @@
         android:theme="@style/Theme.SkinDiseasesDiagnosisSystem"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".framework.presentation.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SkinDiseasesDiagnosisSystem">

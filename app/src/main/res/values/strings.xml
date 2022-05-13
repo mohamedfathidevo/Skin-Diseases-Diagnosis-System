@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Skin Diseases Diagnosis System</string>
+    <string name="advice">Skinner is an Ai diseases Diagnostic System that helps to diagnose diseases, especially skin diseases, the application aims to help and possibly save the lives of millions through early diagnosis of the disease and Help the medical staff by ensuring the correctness of their diagnoses to patients.</string>
+    <string name="diseases_list">
+        Melanoma\nPsoriasis\nSkin burns\nSystemic Lupus Erythematosus\nHerpes Zoster\nSkin Cancer\nVitiligo\nEczema\nScabiesBasal Cell Carcinoma\nMelanocytic Nevi\nBenign Keratosis-like Lesions\nTinea-Ringworm-Versicolor\nLeprosy\nMelasma\nIchthyosis Vulgaris\nVaricose veins\nFrostbite\nFreckles\nChickenpox
+    </string>
+    <string name="list">the diseases that are covered  in the application until now</string>
+
+    <string name="show_less">Show less</string>
+    <string name="show_more">Show more</string>
 </resources>
