@@ -6,8 +6,10 @@ import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.mohamedfathidev.skindiseasesdiagnosissystem.business.domain.util.Constant.TAG
 import com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.component.Screen
 import com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.result_screen.viewmodel.ResultViewModelImpl
@@ -35,12 +37,24 @@ fun ResultScreen(
     )
 
     if (stateNetwork.error.isNotBlank()) {
-        Toast.makeText(context, "Error Happen", Toast.LENGTH_SHORT).show()
-        Log.d(TAG, "ResultScreen Error happen: ${stateNetwork.error}")
-        navController.navigate(Screen.Option.route) {
-            popUpTo(Screen.Result.route) {
-                inclusive = true
+        LaunchedEffect(true) {
+            Toast.makeText(context, "Error Happen", Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "ResultScreen Error happen: ${stateNetwork.error}")
+            navController.navigate(Screen.Option.route) {
+                popUpTo(Screen.Result.route) {
+                    inclusive = true
+                }
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ResultScreenPrev() {
+    val navController = rememberNavController()
+    ResultScreen(
+        navController = navController,
+        uri = ""
+    )
 }

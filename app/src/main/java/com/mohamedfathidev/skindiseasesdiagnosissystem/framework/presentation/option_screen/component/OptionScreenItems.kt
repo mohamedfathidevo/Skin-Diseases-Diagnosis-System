@@ -27,9 +27,12 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.mohamedfathidev.skindiseasesdiagnosissystem.R
+import com.mohamedfathidev.skindiseasesdiagnosissystem.business.domain.state.NetworkState
 import com.mohamedfathidev.skindiseasesdiagnosissystem.business.domain.util.Constant.TAG
 import com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.component.Screen
 import com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.util.ConnectivityStatus
+import com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.util.ShowAlertDialog
+import com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.util.connectivityState
 import com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.util.getTmpFileUri
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.net.URLEncoder
@@ -44,6 +47,9 @@ fun OptionScreenItems(
     navController: NavController
 ) {
     val context = LocalContext.current
+    val connection by connectivityState()
+    val showDialog = remember { mutableStateOf(false) }
+    val isConnected = connection === NetworkState.Available
     val multiplePermissionsState = rememberMultiplePermissionsState(
         listOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -110,12 +116,16 @@ fun OptionScreenItems(
         ) {
             OutlinedButton(
                 onClick = {
-                    if (checkPermissions(multiplePermissionsState)) {
-                        Log.d(TAG, "accepted all permissions")
-                        launcherCamera.launch(imageCameraUri)
-                    } else {
-                        Log.d(TAG, "there are problem in permissions")
-                        multiplePermissionsState.launchMultiplePermissionRequest()
+                    if (isConnected){
+                        if (checkPermissions(multiplePermissionsState)) {
+                            Log.d(TAG, "accepted all permissions")
+                            launcherCamera.launch(imageCameraUri)
+                        } else {
+                            Log.d(TAG, "there are problem in permissions")
+                            multiplePermissionsState.launchMultiplePermissionRequest()
+                        }
+                    } else{
+                        showDialog.value = true
                     }
                 },
                 modifier = Modifier
@@ -140,12 +150,16 @@ fun OptionScreenItems(
 
             OutlinedButton(
                 onClick = {
-                    if (checkPermissions(multiplePermissionsState)) {
-                        Log.d(TAG, "accepted all permissions")
-                        launcherImage.launch("image/*")
+                    if (isConnected){
+                        if (checkPermissions(multiplePermissionsState)) {
+                            Log.d(TAG, "accepted all permissions")
+                            launcherImage.launch("image/*")
+                        } else {
+                            Log.d(TAG, "there are problem in permissions")
+                            multiplePermissionsState.launchMultiplePermissionRequest()
+                        }
                     } else {
-                        Log.d(TAG, "there are problem in permissions")
-                        multiplePermissionsState.launchMultiplePermissionRequest()
+                        showDialog.value = true
                     }
                 },
                 modifier = Modifier
@@ -167,7 +181,12 @@ fun OptionScreenItems(
             }
         }
     }
-
+    if (showDialog.value){
+        ShowAlertDialog(
+            onDismissRequest = { showDialog.value = false },
+            onConfirmRequest = { showDialog.value = false }
+        )
+    }
     ConnectivityStatus(navController = navController)
 }
 
