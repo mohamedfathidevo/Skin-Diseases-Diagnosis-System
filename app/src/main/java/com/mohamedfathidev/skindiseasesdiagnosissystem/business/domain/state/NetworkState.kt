@@ -1,4 +1,6 @@
 package com.mohamedfathidev.skindiseasesdiagnosissystem.business.domain.state
 
-class NetworkState {
+sealed class NetworkState {
+    object Available : NetworkState()
+    object Unavailable : NetworkState()
 }

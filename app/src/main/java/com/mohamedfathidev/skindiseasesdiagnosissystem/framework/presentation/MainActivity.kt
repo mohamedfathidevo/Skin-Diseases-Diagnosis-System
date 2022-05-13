@@ -1,4 +1,4 @@
-package com.mohamedfathidev.skindiseasesdiagnosissystem
+package com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.mohamedfathidev.skindiseasesdiagnosissystem.ui.theme.SkinDiseasesDiagnosisSystemTheme
+import com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.ui.theme.SkinDiseasesDiagnosisSystemTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

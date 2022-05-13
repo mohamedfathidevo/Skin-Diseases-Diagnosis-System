@@ -1,4 +1,4 @@
-package com.mohamedfathidev.skindiseasesdiagnosissystem.ui.theme
+package com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

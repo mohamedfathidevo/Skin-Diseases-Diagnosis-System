@@ -1,4 +1,4 @@
-package com.mohamedfathidev.skindiseasesdiagnosissystem.ui.theme
+package com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
