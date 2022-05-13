@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 fun OptionScreen(
     navController: NavController
 ) {
-
+    OptionScreenItems(navController = navController)
 }
 
 @Preview(showBackground = true)
