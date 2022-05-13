@@ -75,6 +75,7 @@ object Libs{
 }
 
 object TestLibs{
+    const val junitLast = "junit:junit${Versions.JUNIT}"
     const val junit = "androidx.test.ext:junit:${Versions.JUNIT}"
     const val junitExt = "androidx.test.ext:junit:${Versions.JUNIT_EXT}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.ESPRESSO}"

@@ -13,7 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.component.SetupNavGraph
 import com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.ui.theme.SkinDiseasesDiagnosisSystemTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

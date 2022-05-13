@@ -6,6 +6,9 @@ import android.net.Uri
 import android.provider.OpenableColumns
 import androidx.core.content.FileProvider
 import com.mohamedfathidev.skindiseasesdiagnosissystem.BuildConfig
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.File
 import java.io.IOException
 
@@ -45,4 +48,15 @@ fun Uri.getName(context: Context): String? {
     val fileName = nameIndex?.let { returnCursor.getString(it) }
     returnCursor?.close()
     return fileName
+}
+
+fun createPart(context: Context, uri: Uri): MultipartBody.Part {
+    return MultipartBody.Part.createFormData(
+        "pic",
+        context.getFileName(uri)!!,
+        RequestBody.create(
+            MediaType.parse("image/*"),
+            uri.readBytes(context)!!
+        )
+    )
 }
