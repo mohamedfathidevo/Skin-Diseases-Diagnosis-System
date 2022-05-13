@@ -1,0 +1,2 @@
+package com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.result_screen.component
+
