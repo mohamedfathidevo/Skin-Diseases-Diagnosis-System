@@ -1,20 +1,23 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
 }
 
 android {
-    namespace 'com.mohamedfathidev.skindiseasesdiagnosissystem'
-    compileSdk 32
+    namespace Android.applicationId
+    compileSdk Android.compileSDK
 
     defaultConfig {
-        applicationId "com.mohamedfathidev.skindiseasesdiagnosissystem"
-        minSdk 24
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        applicationId Android.applicationId
+        minSdk Android.minSDK
+        targetSdk Android.targetSDK
+        versionCode Android.versionCode
+        versionName Android.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner Android.testInstrumentationRunner
         vectorDrawables {
             useSupportLibrary true
         }
@@ -31,13 +34,13 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = Versions.JVM_TARGET
     }
     buildFeatures {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.1.1'
+        kotlinCompilerExtensionVersion Versions.kotlinCompilerExtensionVersion
     }
     packagingOptions {
         resources {
@@ -48,16 +51,35 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
-    implementation "androidx.compose.ui:ui:$compose_ui_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
-    implementation 'androidx.compose.material:material:1.1.1'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+    implementation Libs.coreKtx
+    implementation Libs.lifecycleRuntime
+    implementation Libs.activityCompose
+    implementation Libs.composeUi
+    implementation Libs.composePreview
+    implementation Libs.composeMaterial
+    testImplementation TestLibs.junit
+    androidTestImplementation TestLibs.junitExt
+    androidTestImplementation TestLibs.espresso
+    androidTestImplementation TestLibs.composeUiTest
+    debugImplementation DebugLibs.uiTooling
+    debugImplementation DebugLibs.uiTestManifest
+    implementation Libs.viewModelCompose
+    implementation Libs.navigationCompose
+    implementation Libs.materialIconsExtended
+    implementation Libs.hiltNavigationCompose
+    implementation Libs.coroutinesCore
+    implementation Libs.coroutinesAndroid
+    implementation Libs.hiltAndroid
+    kapt Libs.hiltAndroidCompiler
+    implementation Libs.hiltLifecycleViewModel
+    kapt Libs.hiltCompiler
+    implementation Libs.retrofit
+    implementation Libs.gson
+    implementation Libs.okhttp3
+    implementation Libs.permissions
+//    implementation Libs.material3
+//    implementation Libs.material3
+    implementation Libs.room
+    annotationProcessor Libs.roomCompiler
+
 }
