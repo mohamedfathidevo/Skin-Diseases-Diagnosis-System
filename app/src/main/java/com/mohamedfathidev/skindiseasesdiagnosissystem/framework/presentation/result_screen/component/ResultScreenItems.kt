@@ -1,6 +1,7 @@
 package com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.result_screen.component
 
-import androidx.compose.animation.ExperimentalAnimationApi
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -15,6 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -22,16 +24,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mohamedfathidev.skindiseasesdiagnosissystem.R
 import com.mohamedfathidev.skindiseasesdiagnosissystem.business.domain.model.Disease
+import com.mohamedfathidev.skindiseasesdiagnosissystem.business.domain.util.Constant
 import com.mohamedfathidev.skindiseasesdiagnosissystem.framework.presentation.util.DefaultAppBar
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalCoroutinesApi::class)
 @Composable
 fun ResultScreenItems(
     navController: NavController,
     diseases: List<Disease>,
-    isLoading : Boolean
+    isLoading : Boolean,
+    error: String
 ) {
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             DefaultAppBar(
@@ -41,9 +44,13 @@ fun ResultScreenItems(
             )
         }
     ) {
-        if (!isLoading) {
-            Box{
-                Column {
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            if (!isLoading && error.isBlank()) {
+                Column(
+                    modifier = Modifier.padding(4.dp)
+                ) {
                     Text(
                         text = "You Have Been diagnosed\nWith",
                         fontSize = 30.sp,
@@ -51,27 +58,37 @@ fun ResultScreenItems(
                         color = Color.Black,
                         modifier = Modifier.padding(16.dp)
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
-                    LazyColumn(modifier = Modifier.padding(vertical = 4.dp)) {
+                    Spacer(modifier = Modifier.height(5.dp))
+                    LazyColumn(
+                        modifier = Modifier.padding(vertical = 4.dp),
+                    ) {
                         items(items = diseases) { disease ->
                             Card(disease = disease)
                         }
                     }
                 }
             }
-        } else {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator(
-
-                )
+            if (isLoading){
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ){
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                    )
+                }
+            }
+            if (error.isNotBlank()){
+                LaunchedEffect(true) {
+                    Toast.makeText(context, "Error Happen while diagnosis", Toast.LENGTH_SHORT).show()
+                    Log.d(Constant.TAG, "ResultScreen Error happen: $error")
+                    navController.popBackStack()
+                }
             }
         }
     }
 }
-
 
 
 @Composable
@@ -113,7 +130,7 @@ private fun CardContents(disease: Disease) {
             )
             if (expanded) {
                 Text(
-                    text = ("You must visit the doctor").repeat(7)
+                    text = ("You must visit the doctor ").repeat(7)
                 )
             }
         }

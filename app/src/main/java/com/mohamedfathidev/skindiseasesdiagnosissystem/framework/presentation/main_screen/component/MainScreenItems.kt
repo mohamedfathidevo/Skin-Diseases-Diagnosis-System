@@ -104,7 +104,7 @@ fun MainScreenItems(
                 ),
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .padding(start = 4.dp, end = 4.dp)
+                    .padding(horizontal = 8.dp)
             )
             Spacer(
                 modifier = Modifier.height(20.dp)

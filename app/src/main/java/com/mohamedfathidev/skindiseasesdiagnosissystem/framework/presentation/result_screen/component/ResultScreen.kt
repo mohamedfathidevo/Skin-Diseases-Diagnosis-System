@@ -24,29 +24,23 @@ fun ResultScreen(
     val context = LocalContext.current
     val stateNetwork = viewModel.state.value
 
-    LaunchedEffect(true){
-        Log.d(TAG, "ResultScreen: $uri")
-        val part = createPart(context, Uri.parse(uri))
-        viewModel.getDiseasesResult(part)
+    if (uri.isNotEmpty()){
+        LaunchedEffect(true){
+            Log.d(TAG, "ResultScreen: $uri")
+            val part = createPart(context, Uri.parse(uri))
+            viewModel.getDiseasesResult(part)
+        }
+    } else {
+        Toast.makeText(context, "Error Happen", Toast.LENGTH_SHORT).show()
+        Log.d(TAG, "ResultScreen Error happen: ${stateNetwork.error}")
+        navController.popBackStack()
     }
-
     ResultScreenItems(
         navController = navController,
         diseases = stateNetwork.diseases,
-        isLoading = stateNetwork.isLoading
+        isLoading = stateNetwork.isLoading,
+        error = stateNetwork.error
     )
-
-    if (stateNetwork.error.isNotBlank()) {
-        LaunchedEffect(true) {
-            Toast.makeText(context, "Error Happen", Toast.LENGTH_SHORT).show()
-            Log.d(TAG, "ResultScreen Error happen: ${stateNetwork.error}")
-            navController.navigate(Screen.Option.route) {
-                popUpTo(Screen.Result.route) {
-                    inclusive = true
-                }
-            }
-        }
-    }
 }
 
 @Preview(showBackground = true)

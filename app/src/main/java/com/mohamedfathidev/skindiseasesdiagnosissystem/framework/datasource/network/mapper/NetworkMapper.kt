@@ -11,16 +11,14 @@ constructor(): EntityMapper<DiseasesNetworkEntity, Disease> {
     override fun mapFromEntity(entity: DiseasesNetworkEntity): Disease {
         return Disease(
             name = entity.name,
-            percentage = entity.percentage,
-            advice = entity.advice
+            percentage = entity.percentage
         )
     }
 
     override fun mapToEntity(domainModel: Disease): DiseasesNetworkEntity {
         return DiseasesNetworkEntity(
             name = domainModel.name,
-            percentage = domainModel.percentage,
-            advice = domainModel.advice
+            percentage = domainModel.percentage
         )
     }
 
