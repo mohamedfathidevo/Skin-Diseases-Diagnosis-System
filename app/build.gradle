@@ -57,13 +57,12 @@ dependencies {
     implementation Libs.composeUi
     implementation Libs.composePreview
     implementation Libs.composeMaterial
-//    testImplementation TestLibs.junit
-//    testImplementation TestLibs.junitLast
-//    androidTestImplementation TestLibs.junitExt
-//    androidTestImplementation TestLibs.espresso
-//    androidTestImplementation TestLibs.composeUiTest
-//    debugImplementation DebugLibs.uiTooling
-//    debugImplementation DebugLibs.uiTestManifest
+    testImplementation TestLibs.junit
+    androidTestImplementation TestLibs.junitExt
+    androidTestImplementation TestLibs.espresso
+    androidTestImplementation TestLibs.composeUiTest
+    debugImplementation DebugLibs.uiTooling
+    debugImplementation DebugLibs.uiTestManifest
     implementation Libs.viewModelCompose
     implementation Libs.navigationCompose
     implementation Libs.materialIconsExtended

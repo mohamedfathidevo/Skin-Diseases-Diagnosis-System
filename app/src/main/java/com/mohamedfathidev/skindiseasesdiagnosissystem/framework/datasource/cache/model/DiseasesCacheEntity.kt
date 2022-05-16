@@ -16,7 +16,4 @@ data class DiseasesCacheEntity(
 
     @ColumnInfo(name = "percentage")
     var percentage: String,
-
-    @ColumnInfo(name = "advice")
-    var advice: String? = null,
 )

@@ -12,9 +12,4 @@ data class DiseasesNetworkEntity (
     @SerializedName("diseasePercentage")
     @Expose
     val percentage: String,
-
-    @SerializedName("diseaseAdvice")
-    @Expose
-    val advice: String
-
 )

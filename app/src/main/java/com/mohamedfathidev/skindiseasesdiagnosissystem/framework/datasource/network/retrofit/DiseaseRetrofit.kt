@@ -9,7 +9,7 @@ import retrofit2.http.Part
 
 interface DiseaseRetrofit {
     @Multipart
-    @POST("predict")
+    @POST("predictskin")
     suspend fun getDiseasesResult(
         @Part part: MultipartBody.Part
     ): List<DiseasesNetworkEntity>
