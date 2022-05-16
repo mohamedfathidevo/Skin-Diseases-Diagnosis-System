@@ -56,27 +56,22 @@ fun OptionScreenItems(
             Manifest.permission.CAMERA,
         )
     )
-    var imageCameraUri by remember {
+    val imageCameraUri by remember {
         mutableStateOf<Uri?>(getTmpFileUri(context = context))
     }
-    var imageGalleryUri by remember {
-        mutableStateOf<Uri?>(null)
-    }
 
-    var imageCropCameraLauncher = rememberLauncherForActivityResult(CropImageContract()) { result ->
+    val imageCropCameraLauncher = rememberLauncherForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
-            imageCameraUri = result.uriContent
-            val encodedCameraUrl = URLEncoder.encode(imageCameraUri.toString(), StandardCharsets.UTF_8.toString())
+            val encodedCameraUrl = URLEncoder.encode(result.uriContent.toString(), StandardCharsets.UTF_8.toString())
             navController.navigate(Screen.Result.withArgs(encodedCameraUrl))
         } else{
             Log.d(TAG, "OptionCropCameraImage: ${result.error.toString()}")
         }
     }
 
-    var imageCropGalleryLauncher = rememberLauncherForActivityResult(CropImageContract()) { result ->
+    val imageCropGalleryLauncher = rememberLauncherForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
-            imageGalleryUri = result.uriContent
-            val encodedGalleryUrl = URLEncoder.encode(imageGalleryUri.toString(), StandardCharsets.UTF_8.toString())
+            val encodedGalleryUrl = URLEncoder.encode(result.uriContent.toString(), StandardCharsets.UTF_8.toString())
             navController.navigate(Screen.Result.withArgs(encodedGalleryUrl))
         } else{
             Log.d(TAG, "OptionCropGalleryImage: ${result.error.toString()}")
@@ -99,8 +94,12 @@ fun OptionScreenItems(
         contract =
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
-        val cropOptions = CropImageContractOptions(imageGalleryUri, CropImageOptions())
-        imageCropGalleryLauncher.launch(cropOptions)
+        if (uri != null) {
+            val cropOptions = CropImageContractOptions(uri, CropImageOptions())
+            imageCropGalleryLauncher.launch(cropOptions)
+        }else{
+            Log.d(TAG, "OnPickImageFromGallery: please select valid image")
+        }
     }
 
     Box(
