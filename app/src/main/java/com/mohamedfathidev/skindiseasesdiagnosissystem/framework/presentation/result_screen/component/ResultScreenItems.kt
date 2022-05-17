@@ -48,22 +48,26 @@ fun ResultScreenItems(
             modifier = Modifier.fillMaxSize()
         ) {
             if (!isLoading && error.isBlank()) {
-                Column(
-                    modifier = Modifier.padding(4.dp)
-                ) {
-                    Text(
-                        text = "You Have Been diagnosed\nWith",
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = Color.Black,
-                        modifier = Modifier.padding(16.dp)
-                    )
-                    Spacer(modifier = Modifier.height(5.dp))
-                    LazyColumn(
-                        modifier = Modifier.padding(vertical = 4.dp),
+                if (diseases.size == 1 && diseases[0].name == "normal"){
+                    SafeDiagnosis()
+                }else {
+                    Column(
+                        modifier = Modifier.padding(4.dp)
                     ) {
-                        items(items = diseases) { disease ->
-                            Card(disease = disease)
+                        Text(
+                            text = "You Have Been diagnosed\nWith",
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color.Black,
+                            modifier = Modifier.padding(16.dp)
+                        )
+                        Spacer(modifier = Modifier.height(5.dp))
+                        LazyColumn(
+                            modifier = Modifier.padding(vertical = 4.dp),
+                        ) {
+                            items(items = diseases) { disease ->
+                                Card(disease = disease)
+                            }
                         }
                     }
                 }
