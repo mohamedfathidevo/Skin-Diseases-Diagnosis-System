@@ -16,7 +16,7 @@ constructor(
         emit(DataState.Loading)
         delay(4000)
         try {
-            val networkResult = networkDataSource.getDiseasesResult(part)
+            val networkResult = networkDataSource.getDiseasesResult(part).sortedBy { it.percentage }.take(5)
             emit(DataState.Success(networkResult))
         }catch (e: Exception) {
             emit(DataState.Error(e))

@@ -4,4 +4,5 @@ import okhttp3.MultipartBody
 
 interface ResultViewModel {
     fun getDiseasesResult(part: MultipartBody.Part)
+    suspend fun justForTest(id: Int)
 }

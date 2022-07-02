@@ -49,7 +49,7 @@ fun ResultScreenItems(
         ) {
             if (!isLoading && error.isBlank()) {
                 if (diseases.size == 1 && diseases[0].name == "normal"){
-                    SafeDiagnosis()
+                    SafeDiagnosis(false)
                 }else {
                     Column(
                         modifier = Modifier.padding(4.dp)

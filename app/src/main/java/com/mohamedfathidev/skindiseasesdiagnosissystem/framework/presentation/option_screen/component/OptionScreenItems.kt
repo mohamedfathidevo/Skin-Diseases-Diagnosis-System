@@ -60,19 +60,28 @@ fun OptionScreenItems(
         mutableStateOf<Uri?>(getTmpFileUri(context = context))
     }
 
+    /**
+    Edit Just for discussion
+     */
     val imageCropCameraLauncher = rememberLauncherForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
-            val encodedCameraUrl = URLEncoder.encode(result.uriContent.toString(), StandardCharsets.UTF_8.toString())
-            navController.navigate(Screen.Result.withArgs(encodedCameraUrl))
+            //val encodedCameraUrl = URLEncoder.encode(result.uriContent.toString(), StandardCharsets.UTF_8.toString())
+            //navController.navigate(Screen.Result.withArgs(encodedCameraUrl))
+            navController.navigate(Screen.Result.withArgs("camera"))
         } else{
             Log.d(TAG, "OptionCropCameraImage: ${result.error.toString()}")
         }
     }
 
+    /**
+    Edit Just for discussion
+     */
+
     val imageCropGalleryLauncher = rememberLauncherForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
-            val encodedGalleryUrl = URLEncoder.encode(result.uriContent.toString(), StandardCharsets.UTF_8.toString())
-            navController.navigate(Screen.Result.withArgs(encodedGalleryUrl))
+            //val encodedGalleryUrl = URLEncoder.encode(result.uriContent.toString(), StandardCharsets.UTF_8.toString())
+            //navController.navigate(Screen.Result.withArgs(encodedGalleryUrl))
+            navController.navigate(Screen.Result.withArgs("gallery"))
         } else{
             Log.d(TAG, "OptionCropGalleryImage: ${result.error.toString()}")
         }

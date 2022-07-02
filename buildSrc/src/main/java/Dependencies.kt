@@ -6,7 +6,7 @@ object Versions {
     const val VERSION_CODE = 1
     const val VERSION_NAME = "1.0"
     const val COMPOSE = "1.1.1"
-    const val ANDROID_GRADLE_VERSION = "7.4.0-alpha02"
+    const val ANDROID_GRADLE_VERSION = "7.4.0-alpha05"
     const val KOTLIN = "1.6.10"
     const val HILT = "2.38.1"
     const val HILT_ANDROID_COMPILER = "2.37"
